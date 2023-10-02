@@ -1,83 +1,70 @@
-#include <iostream>
+#include<iostream>
+#include<string>
+#include <stdlib.h>
 #include <fstream>
-#include <string>
-
 using namespace std;
-
-// User struct to hold user information
-struct User {
-    string username;
-    string password;
-};
-
-// Function to register a new user
-void registerUser() {
-    string username, password;
-    cout << "Enter username: ";
-    cin >> username;
-    cout << "Enter password: ";
-    cin >> password;
-
-    // Open users file in append mode
-    ofstream usersFile("users.txt", ios::app);
-    usersFile << username << "," << password << endl;
-    usersFile.close();
-
-    cout << "User registered successfully!\n";
+void mainmenu();
+int choice;
+bool cinfail;
+int confirmation;
+string username, password, password2;
+void writetofile(string username){
+ofstream writefile;
+string file = username+".txt";
+writefile.open(file.c_str());
+writefile << password;
+writefile.close();
+mainmenu(); }
+void login(){
+cout << "You are being logged in!";}
+void registerpassword(){
+cout << "Please enter the password:" << endl;
+cin >> password;
+cout << "Please renter your password:" << endl;
+cin >> password2;
+if (password == password2){
+cin.clear();
+cin.ignore(10000,'\n');
+writetofile(username);
+exit(1);
 }
-
-// Function to login an existing user
-void loginUser() {
-    string username, password;
-    cout << "Enter username: ";
-    cin >> username;
-    cout << "Enter password: ";
-    cin >> password;
-
-    // Open users file in read mode
-    ifstream usersFile("users.txt");
-    string line;
-    bool userFound = false;
-    while (getline(usersFile, line)) {
-        size_t pos = line.find(",");
-        string interncrowd = line.substr(0, pos);
-        string interncrowd = line.substr(pos+1);
-        if (username == interncrowd && password == interncrowd) {
-            userFound = true;
-            break;
-        }
-    }
-    usersFile.close();
-
-    if (userFound) {
-        cout << "Login successful!\n";
-    } else {
-        cout << "Invalid username or password. Please try again.\n";
-    }
+else;{
+cout << "Sorry invalid" << endl;
+registerpassword();
+}}
+void registerme(){
+cout << "Please enter your username: " << endl;
+getline(cin, username);
+cout << "\nUsername - \""<< username << "\"\nConfirm? \n\n[1] Yes\n[2] No" << endl;
+cin >> confirmation;
+if (confirmation == 1){
+registerpassword();
 }
-
-int main() {
-    int choice;
-    do {
-        cout << "1. Register\n2. Login\n3. Exit\n";
-        cout << "Enter your choice: ";
-        cin >> choice;
-
-        switch(choice) {
-            case 1:
-                registerUser();
-                break;
-            case 2:
-                loginUser();
-                break;
-            case 3:
-                cout << "Exiting...\n";
-                break;
-            default:
-                cout << "Invalid choice. Please try again.\n";
-                break;
-        }
-    } while (choice != 3);
-
-    return 0;
+else; {
+cout << "Sorry invalid input, Please try again" << endl;
+cin.clear();
+cin.ignore(10000,'\n');
+registerme();
+}}
+void exit(){
+exit(0);}
+void mainmenu(){ cout << "Hello, Would you like to log in or register\n[1] Login\n[2] Register\n[3] Exit" <<endl; cin >> choice; do{
+cinfail = cin.fail();
+cin.clear();
+cin.ignore(10000,'\n');
+}while(cinfail == true);{
+switch(choice){
+case 1:
+login();
+break;
+case 2:
+registerme();
+break;
+case 3:
+exit();}}}
+main(){
+cout<<"\n";
+cout<<"WELCOME----TO----LOGIN----REGISTRATION----SYSTEM"<<endl;
+cout<<"\n";
+mainmenu();
 }
